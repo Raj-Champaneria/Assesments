@@ -1,0 +1,48 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "form": [
+    {
+      "fname": "Krishna LAD",
+      "description": "React",
+      "status": "inactive",
+      "rate": "123344",
+      "balance": "1412",
+      "deposit": "44444",
+      "id": 18
+    },
+    {
+      "fname": "Ashish",
+      "description": "Mongo DB",
+      "status": "Success",
+      "rate": "250050",
+      "balance": "2255000",
+      "deposit": "20215",
+      "id": 19
+    },
+    {
+      "fname": "Riya",
+      "description": "Reactt",
+      "status": "Open",
+      "rate": "111",
+      "balance": "11",
+      "deposit": "111",
+      "id": 21
+    }
+  ]
+}
