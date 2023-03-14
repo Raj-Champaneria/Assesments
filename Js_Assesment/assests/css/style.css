@@ -3,13 +3,23 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 html,
 body {
   height: 100%;
 }
+
 body {
   background-color: #FFFFFF;
 }
+
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
 .dropbtn {
   background-color: #3498db;
   color: white;
@@ -28,8 +38,8 @@ body {
   position: relative;
   display: inline-block;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(70, 79, 96, 0.16), 0px 2px 5px rgba(89, 96, 120, 0.1);
-  border-radius:6px;
-  
+  border-radius: 6px;
+
 }
 
 .dropdown-content {
@@ -59,12 +69,14 @@ body {
 
 /* form css*/
 
-#form{
-  margin:20px 0px;
+#form {
+  margin: 20px 0px;
 }
-.name{
-  flex:1;
+
+.name {
+  flex: 1;
 }
+
 .d-flex {
   display: flex;
 }
@@ -93,12 +105,15 @@ select {
   font-size: 18px;
   margin-top: 10px;
 }
+
 .mt-20 {
   margin-top: 20px;
 }
+
 .m-20 {
-  margin: 10px 20px ;
+  margin: 10px 20px;
 }
+
 input {
   outline: none;
 }
@@ -109,30 +124,38 @@ input {
   margin: 0 auto;
   text-align: center;
   border-collapse: collapse;
-
+  /* overflow: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%; */
 }
 
 tr:nth-child(even) {
   background-color: #EBF0FA;
- 
 }
+
 tr:nth-child(odd) {
   background-color: #FFFFFF;
 }
+
 td,
 th {
   padding: 10px;
 }
+
 th {
-  background-color:  #FFFFFF;
+  background-color: #FFFFFF;
   font-size: 14px;
-  color:#464F60;
+  color: #464F60;
 }
+
 td {
   font-size: 20px;
-  color:#464F60;
+  color: #464F60;
   max-width: 150px;
 }
+
 .table-update-btn {
   color: white;
   padding: 12px;
@@ -142,6 +165,7 @@ td {
   border: 0;
   cursor: pointer;
 }
+
 .table-delete-btn {
   color: white;
   padding: 12px;
@@ -151,12 +175,13 @@ td {
   border: 0;
   cursor: pointer;
 }
+
 .button-div {
   justify-content: end;
   margin-right: 20px;
   gap: 20px;
-  background-color:#EBF0FA;
-  padding:20px;
+  background-color: #EBF0FA;
+  padding: 20px;
 }
 
 .btn {
@@ -170,7 +195,7 @@ td {
 }
 
 .btn-save {
-  background-color:#2264E5;
+  background-color: #2264E5;
 }
 
 .btn-cancel {
@@ -180,6 +205,7 @@ td {
 .btn-update {
   background-color: rgb(14, 2, 3);
 }
+
 .toggle-div {
   justify-content: space-between;
   align-items: center;
@@ -190,37 +216,107 @@ td {
 input[type="text"]::placeholder {
   font-size: 18px;
 }
+
 label {
   font-size: 16px;
   margin-bottom: 10px;
-  color:#464F60;
+  color: #464F60;
 }
+
 .validation-msg {
   color: red;
   font-size: 14px;
   animation: shake 0.5s 500;
 }
-.dropbtn{
+
+.dropbtn {
   background-color: white;
-  color:#2264E5;
+  color: #2264E5;
 }
 
-.add-register{
-  background-color:#2264E5;
-  margin-right:20px;
+.add-register {
+  background-color: #2264E5;
+  margin-right: 20px;
 }
 
-.dropbtn:hover{
+.dropbtn:hover {
   color: white;
 }
+
+.span-balancepos {
+  color: #14804A;
+  ;
+  /* padding:1px 10px; 
+  background-color: #F0F1FA; */
+  border-radius: 10px;
+}
+
+.span-error {
+  color: red;
+  padding: 1px 10px;
+  background-color: #F0F1FA;
+  border-radius: 10px;
+}
+
+.span-Open {
+  color: #4F5AED;
+  background-color: #F0F1FA;
+  padding: 1px 10px;
+  border-radius: 10px;
+}
+
+.span-Success {
+  color: #14804A;
+  background-color: #F0F1FA;
+  padding: 1px 10px;
+  border-radius: 10px;
+}
+
+.span-inactive {
+  color: #5A6376;
+  background-color: #F0F1FA;
+  padding: 1px 10px;
+  border-radius: 10px;
+}
+
 @keyframes shake {
   25% {
     translate: 6px 0;
   }
+
   50% {
     translate: -6px 0;
   }
+
   100% {
     translate: 6px 0;
   }
+}
+
+/* if(iterator["key"]=="balance"){         
+  if(Number(element[iterator["key"]])>=0){
+    cell.className="span-error";
+    // td.appendChild(text);
+    cell.appendChild(text);
+  }     
+}else{
+cell.appendChild(text);
+} */
+
+.select-upper {
+  width: 15%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+}
+
+thead{
+  position: sticky;
+  top: 0;
 }

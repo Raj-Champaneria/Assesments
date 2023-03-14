@@ -23,7 +23,8 @@ fname.addEventListener("keyup", (e) => {
     document.querySelector("#fmsg").innerHTML = "this field is required";
   } else if (!fname.value.match(regfname)) {
     fname.style.border = "2px solid red";
-    document.querySelector("#fmsg").innerHTML = "Length Should be minimum 3 and maximum 25";
+    document.querySelector("#fmsg").innerHTML =
+      "Length Should be minimum 3 and maximum 25";
   } else {
     document.querySelector("#fmsg").innerHTML = "";
     fname.style.border = "2px solid green";
@@ -39,7 +40,8 @@ description.addEventListener("keyup", (e) => {
     document.querySelector("#dismsg").innerHTML = "this field is required";
   } else if (!description.value.match(regdes)) {
     description.style.border = "2px solid red";
-    document.querySelector("#dismsg").innerHTML = "Length Should be minimum 3 and maximum 150";
+    document.querySelector("#dismsg").innerHTML =
+      "Length Should be minimum 3 and maximum 150";
   } else {
     document.querySelector("#dismsg").innerHTML = "";
     description.style.border = "2px solid green";
@@ -79,8 +81,6 @@ balance.addEventListener("keyup", (e) => {
   }
 });
 
-
-
 let deposit = document.querySelector("#deposit");
 let depomsg = document.querySelector("#depomsg");
 deposit.addEventListener("keyup", (e) => {
@@ -103,7 +103,7 @@ btnsave.addEventListener("click", (e) => {
   let status = document.querySelector("#status").value;
   let rate = document.querySelector("#rate").value;
   let balance = document.querySelector("#balance").value;
-  let deposit=document.querySelector("#deposit").value;
+  let deposit = document.querySelector("#deposit").value;
 
   if (
     fname == "" ||
@@ -112,7 +112,7 @@ btnsave.addEventListener("click", (e) => {
     status == "status" ||
     rate == "" ||
     balance == "" ||
-    deposit==""
+    deposit == ""
   ) {
     alert("please input all fields");
   } else if (
@@ -130,7 +130,7 @@ btnsave.addEventListener("click", (e) => {
         status,
         rate,
         balance,
-        deposit
+        deposit,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -147,8 +147,15 @@ btnsave.addEventListener("click", (e) => {
 
 let table = document.createElement("table");
 table.classList.add("table-css");
-let headers=[{header:"#",key:"id"},{header:"NAME",key:"fname"},{header:"DESCRIPTION",key:"description"},{header:"STATUS",key:"status"},{header:"RATE",key:"rate"},{header:"BALANCE",key:"balance"},{header:"DEPOSIT",key:"deposit"}]
-
+let headers = [
+  { header: "#", key: "id" },
+  { header: "NAME", key: "fname" },
+  { header: "DESCRIPTION", key: "description" },
+  { header: "STATUS", key: "status" },
+  { header: "RATE", key: "rate" },
+  { header: "BALANCE", key: "balance" },
+  { header: "DEPOSIT", key: "deposit" },
+];
 
 function thead(t) {
   let thead = table.createTHead("thead");
@@ -171,108 +178,151 @@ function thead(t) {
 thead(table);
 
 
-function tbody(t) {
-  let tbody = table.createTBody("tbody");
-  table.appendChild(tbody);
+let tbody = table.createTBody("tbody");
+table.appendChild(tbody);
 
-  fetch("http://localhost:3000/form")
-    .then((Response) => Response.json())
-    .then((data) => {
-      for (const element of data) {
-        let tr = tbody.insertRow();
-        tr.classList.add("tabletr");
-        for (const iterator of headers) {
-          let cell = tr.insertCell();
-          let text = document.createTextNode(element[iterator["key"]]);
+
+
+fetch("http://localhost:3000/form")
+  .then((Response) => Response.json())
+  .then((data) => {
+    tabledata(data)
+  });
+function tabledata(data) {
+  for (const element of data) {
+    let tr = tbody.insertRow();
+    tr.classList.add("tabletr");
+    for (const iterator of headers) {
+      let cell = tr.insertCell();
+      let text = document.createTextNode(element[iterator["key"]]);
+
+      if (iterator["key"] == "balance") {
+        if (Number(element[iterator["key"]]) >= 0) {
+          cell.className = "span-balancepos";
+          // td.appendChild(text);
           cell.appendChild(text);
         }
-        let td = document.createElement("td");
-        tr.appendChild(td);
-        let btnEdit = document.createElement("button");
-        let edittext = document.createTextNode("EDIT");
-        btnEdit.classList.add("table-update-btn");
-        btnEdit.appendChild(edittext);
-        let Deletetext = document.createTextNode("DELETE");
-        let btnDelete = document.createElement("button");
-        btnDelete.appendChild(Deletetext);
-        btnDelete.classList.add("table-delete-btn");
-        td.appendChild(btnEdit);
-        td.appendChild(btnDelete);
-
-        btnDelete.addEventListener("click",(e)=>{
-          e.preventDefault();
-          Delete()
-        } );
-
-        function Delete() {
-          fetch(`http://localhost:3000/form/${element.id}`, {
-            method: "DELETE",
-          });
-        }
-
-        btnEdit.addEventListener("click", Edit);
-        function Edit() {
-          document.getElementById("fname").value = element.fname;
-          document.getElementById("description").value = element.description;
-          document.getElementById("status").value = element.status;
-          document.getElementById("rate").value = element.rate;
-          document.getElementById("balance").value = element.balance;
-          document.getElementById("deposit").value = element.deposit;
-
-          let updates = document.getElementById("update");
-          updates.addEventListener("click", update);
-        
-
-          function update() {
-            fetch(`http://localhost:3000/form/${element.id}`, {
-              method: "PUT",
-              headers: {
-                "Content-type": "application/json; charset=UTF-8",
-              },
-              body: JSON.stringify({
-                fname: document.getElementById("fname").value,
-                description: document.getElementById("description").value,
-                status: document.getElementById("status").value,
-                rate: document.getElementById("rate").value,
-                balance: document.getElementById("balance").value,
-                deposit:document.getElementById("deposit").value
-              }),
-            });
-          }
-        }
       }
+      if (iterator["key"] == "status") {
+        let span = document.createElement("span");
+        if (element[iterator["key"]] === "Success") {
+          span.className = "span-Success";
+        }
+        if (element[iterator["key"]] === "Open") {
+          span.className = "span-Open";
+        }
+
+        if (element[iterator["key"]] === "inactive") {
+          span.className = "span-inactive";
+        }
+        if (element[iterator["key"]] === "error") {
+          span.className = "span-error";
+        }
+        span.appendChild(text);
+        cell.appendChild(span);
+      } else {
+        cell.appendChild(text);
+      }
+
+    }
+    let td = document.createElement("td");
+    tr.appendChild(td);
+    let btnEdit = document.createElement("button");
+    let edittext = document.createTextNode("EDIT");
+    btnEdit.classList.add("table-update-btn");
+    btnEdit.appendChild(edittext);
+    let Deletetext = document.createTextNode("DELETE");
+    let btnDelete = document.createElement("button");
+    btnDelete.appendChild(Deletetext);
+    btnDelete.classList.add("table-delete-btn");
+    td.appendChild(btnEdit);
+    td.appendChild(btnDelete);
+
+    btnDelete.addEventListener("click", (e) => {
+      e.preventDefault();
+      Delete();
     });
-}
-tbody(table);
 
-function tablesearch() {
-  let input, filter, table, tr, td, i, txtval;
+    function Delete() {
+      fetch(`http://localhost:3000/form/${element.id}`, {
+        method: "DELETE",
+      });
+    }
 
-  input = document.getElementById("search");
-  filter = input.value.toUpperCase();
-  console.log(filter);
-  table = document.getElementsByClassName("table");
-  tr = document.getElementsByClassName("tabletr");
-  // td=document.getElementsByClassName("tabletd");
+    btnEdit.addEventListener("click", Edit);
+    function Edit() {
+      document.getElementById("fname").value = element.fname;
+      document.getElementById("description").value = element.description;
+      document.getElementById("status").value = element.status;
+      document.getElementById("rate").value = element.rate;
+      document.getElementById("balance").value = element.balance;
+      document.getElementById("deposit").value = element.deposit;
 
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
+      let updates = document.getElementById("update");
+      updates.addEventListener("click", update);
 
-    if (td) {
-      txtval = td.textContent || td.innetText;
-      if (txtval.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      }
-      else {
-        tr[i].style.display = "none"; 
+      function update() {
+        fetch(`http://localhost:3000/form/${element.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify({
+            fname: document.getElementById("fname").value,
+            description: document.getElementById("description").value,
+            status: document.getElementById("status").value,
+            rate: document.getElementById("rate").value,
+            balance: document.getElementById("balance").value,
+            deposit: document.getElementById("deposit").value,
+          }),
+        });
       }
     }
   }
-
 }
 
+// function tablesearch() {
+//   let input, filter, table, tr, td, i, txtval;
 
+//   input = document.getElementById("search");
+//   filter = input.value.toUpperCase();
+//   console.log(filter);
+//   table = document.getElementsByClassName("table");
+//   tr = document.getElementsByClassName("tabletr");
+//   // td=document.getElementsByClassName("tabletd");
+
+//   for (i = 0; i < tr.length; i++) {
+//     td = tr[i].getElementsByTagName("td")[3];
+
+//     if (td) {
+//       txtval = td.textContent || td.innetText;
+//       if (txtval.toUpperCase().indexOf(filter) > -1) {
+//         tr[i].style.display = "";
+//       } else {
+//         tr[i].style.display = "none";
+//       }
+//     }
+//   }
+// }
+
+function filter() {
+  let status = document.getElementById("status");
+  fetch(`http://localhost:3000/form`)
+    .then(res => res.json())
+    .then(data => {
+      let a = data.filter(item => item.status == status.value || status.value == "status")
+      tbody.innerHTML = ""
+      tabledata(a)
+    })
+}
 
 console.log(table);
-let body=document.querySelector("body");
-body.appendChild(table)
+let body = document.querySelector("body");
+let wrapper = document.querySelector("#wrapper");
+wrapper.appendChild(table);
+body.appendChild(wrapper);
+
+let main = document.querySelector("main");
+main.classList.add("main")
+wrapper.appendChild(main);
+main.appendChild(table);
