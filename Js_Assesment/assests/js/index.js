@@ -104,14 +104,14 @@ btnsave.addEventListener("click", (e) => {
   let rate = document.querySelector("#rate").value;
   let balance = document.querySelector("#balance").value;
   let deposit = document.querySelector("#deposit").value;
-
+  console.log(fname);
   if (
-    fname == "" ||
-    status == "status" ||
-    description == "" ||
-    status == "status" ||
-    rate == "" ||
-    balance == "" ||
+    fname == "" &&
+    status == "status" &&
+    description == "" &&
+    status == "status" &&
+    rate == "" &&
+    balance == "" &&
     deposit == ""
   ) {
     alert("please input all fields");
